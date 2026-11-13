@@ -1,0 +1,14 @@
+{
+  "name": "@shop/checkout",
+  "version": "2.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Prices orders for the storefront and the ledger.",
+  "exports": {
+    ".": "./src/checkout.ts",
+    "./receipt": "./src/receipt.ts"
+  },
+  "scripts": {
+    "test": "node --test test/"
+  }
+}

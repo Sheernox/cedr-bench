@@ -1,2 +1,2 @@
 # References can be added after the edition is frozen.
-references = []
+# Append [[references]] entries printed by cedr bench probe --set-reference.

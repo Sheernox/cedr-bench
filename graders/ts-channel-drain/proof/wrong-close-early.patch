@@ -24,7 +24,7 @@ Wrong: mark close complete before pending saves drain.
 -
 -/** Keyed autosave with bounded storage concurrency and replaceable queued text. */
 +interface Caller { deferred: Deferred<Receipt>; live: boolean; cleanup: () => void }
-+interface Job { write: Write; callers: Caller[]; attempt: number; started: boolean }
++interface Job { write: Write; callers: Caller[]; attempt: number }
 +/** The key lease spans backoff; the global slot spans only a sink attempt. */
  export class Writer {
 -  private pending = new Map<string, Batch>();
@@ -72,7 +72,7 @@ Wrong: mark close complete before pending saves drain.
 -      queued.write = {key,value,generation};
 +    let job=this.pending.get(key);
 +    if (!job) {
-+      job={write:{key,value,generation},callers:[],attempt:0,started:false};
++      job={write:{key,value,generation},callers:[],attempt:0};
 +      this.pending.set(key,job);this.ready.push(job);
 +    } else job.write={key,value,generation};
 +    const caller: Caller={deferred:deferred<Receipt>(),live:true,cleanup:()=>{}};
@@ -121,7 +121,7 @@ Wrong: mark close complete before pending saves drain.
 +          continue;
 +        }
 +        if (this.pending.get(key)===job) this.pending.delete(key);
-+        this.leased.set(key,job);job.started=true;
++        this.leased.set(key,job);
 +        this.run(job);
 +      }
 +    } finally { this.pumping=false; }

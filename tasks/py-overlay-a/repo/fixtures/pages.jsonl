@@ -1,0 +1,4 @@
+{"space": "public", "start": 0, "end": 100, "revision": 4, "value": {"offer": "day"}, "deleted": false}
+{"space": "public", "start": 20, "end": 40, "revision": 6, "value": {"offer": "closed"}, "deleted": true}
+{"space": "public", "start": 25, "end": 30, "revision": 3, "value": {"offer": "stale"}, "deleted": false}
+{"space": "public", "start": 60, "end": 80, "revision": 4, "value": {"offer": "late"}, "deleted": false}

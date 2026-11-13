@@ -1,0 +1,1 @@
+{"name":"channel-writer","private":true,"type":"module","scripts":{"test":"node --test test/*.test.ts"}}

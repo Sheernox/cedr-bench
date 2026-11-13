@@ -1,0 +1,12 @@
+job: release-linux
+step: collect
+  source: fixtures/project
+  policy: ci/release.policy
+  archive written: bundle.zip
+step: verify-bundle
+  integrity: passed
+  required: public/index.html: present
+  required: dist/legal/NOTICE: MISSING_MEMBER
+  required: docs/NOTICE: present
+ERROR: release gate rejected bundle (1 required member absent)
+job failed: exit 1

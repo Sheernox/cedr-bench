@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "labels": [
+    "work",
+    "",
+    "\u00e9",
+    "work"
+  ],
+  "rows": [
+    {
+      "key": "old-1",
+      "heading": "portable",
+      "content": "",
+      "label_ids": [
+        3,
+        1,
+        2,
+        0
+      ],
+      "flags": 2,
+      "ctime": 0,
+      "sync": {
+        "remote": false
+      }
+    },
+    {
+      "key": "old-2",
+      "heading": "pinned",
+      "content": "body",
+      "label_ids": [],
+      "flags": 1,
+      "ctime": -1000
+    }
+  ],
+  "device": {
+    "name": "portable"
+  }
+}

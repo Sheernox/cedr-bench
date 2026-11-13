@@ -1,0 +1,183 @@
+Wrong: trust objects supplied by library callers.
+
+--- a/vault/codec.py
++++ b/vault/codec.py
+@@ -1,40 +1,59 @@
+-"""Decode a vault and encode the current revision."""
++"""Validate vaults at read and write boundaries, using the current encoder."""
+ from __future__ import annotations
++from copy import deepcopy
+ from .model import Note, Vault
+-from .legacy import read_zero, read_one, read_three
++from .legacy import read_zero, read_one, read_two, read_three, extensions, timestamp
+ from recordkit.validation import mapping, sequence, text, strings, boolean, Invalid
+-
+ VERSION = 4
+
+ class FormatError(ValueError):
+     """The input is not a supported vault file."""
+
++def validate(vault: Vault) -> Vault:
++    identities = set()
++    mapping(vault.extra)
++    for note in vault.notes:
++        text(note.id, empty=False)
++        if note.id in identities:
++            raise ValueError("duplicate identity")
++        identities.add(note.id)
++        text(note.title); text(note.body); strings(note.labels)
++        boolean(note.pinned); boolean(note.archived)
++        timestamp(note.created); mapping(note.extra)
++    return vault
++
+ def decode(document: object) -> Vault:
+     try:
+         if isinstance(document, list):
+-            return read_zero(document)
++            return validate(read_zero(document))
+         document = mapping(document)
+         version = document.get("version")
+-        if version == 1:
+-            return read_one(document)
+-        if version == 3:
+-            return read_three(document)
++        if type(version) is not int:
++            raise ValueError("version must be integer")
++        readers = {1:read_one, 2:read_two, 3:read_three}
++        if version in readers:
++            return validate(readers[version](document))
+         if version != VERSION:
+-            raise FormatError("unsupported vault version")
+-        notes: list[Note] = []
+-        for row in sequence(document["notes"]):
++            raise ValueError("unsupported vault version")
++        notes = []
++        for value in sequence(document["notes"]):
++            row = mapping(value)
+             notes.append(Note(text(row["id"]), text(row["title"]), text(row["body"]),
+-                              strings(row.get("labels", [])),
+-                              boolean(row.get("pinned", False)),
+-                              boolean(row.get("archived", False)),
+-                              row.get("created"), mapping(row.get("extra", {}))))
+-        return Vault(notes, mapping(document.get("extra", {})))
+-    except (KeyError, TypeError, Invalid, IndexError) as exc:
+-        raise FormatError("malformed vault") from exc
++                              strings(row.get("labels", [])), boolean(row.get("pinned",False)),
++                              boolean(row.get("archived",False)), timestamp(row.get("created")),
++                              extensions(row, {"id","title","body","labels","pinned","archived","created","extra"})))
++        return validate(Vault(notes, extensions(document, {"version","notes","extra"})))
++    except (ValueError, KeyError, TypeError, IndexError, OverflowError, OSError) as exc:
++        raise FormatError("malformed or unsupported vault") from exc
+
+ def encode(vault: Vault) -> dict[str, object]:
+-    return {"version": VERSION, "notes": [
+-        {"id": note.id, "title": note.title, "body": note.body,
+-         "labels": note.labels, "archived": note.archived,
+-         "created": note.created, "extra": note.extra} for note in vault.notes],
+-        "extra": vault.extra}
++    try:
++        result = {"version":VERSION, "notes":[
++            {"id":n.id, "title":n.title,"body":n.body,"labels":n.labels,
++             "pinned":n.pinned,"archived":n.archived,"created":n.created,"extra":n.extra}
++            for n in vault.notes], "extra":vault.extra}
++        from recordkit.jsonio import canonical
++        canonical(result)
++        return deepcopy(result)
++    except (ValueError, TypeError, AttributeError) as exc:
++        raise FormatError("invalid in-memory vault") from exc
+--- a/vault/importer.py
++++ b/vault/importer.py
+@@ -17,10 +17,4 @@
+     return result
+
+ def import_document(destination: Vault, document: object, overwrite: bool = False) -> Vault:
+-    # CLI import used to predate the Store abstraction.
+-    rows = document["notes"] if isinstance(document, dict) else document
+-    from .model import Note
+-    incoming = Vault([Note(row.get("id", f"import-{i}"), row["title"],
+-                           row.get("body", row.get("text", "")),
+-                           row.get("labels", [])) for i, row in enumerate(rows, 1)])
+-    return merge(destination, incoming, overwrite)
++    return merge(destination, decode(document), overwrite)
+--- a/vault/legacy.py
++++ b/vault/legacy.py
+@@ -1,21 +1,64 @@
+-"""Readers for historical releases. Do not write these formats."""
++"""Readers for every historical wire schema; never write old revisions."""
+ from __future__ import annotations
+ from datetime import datetime, timezone
++from copy import deepcopy
+ from .model import Note, Vault
++from recordkit.validation import mapping, sequence, text, strings, boolean, integer
+
+-# v0 had no identity column. The ordinal is stable across loads.
+-def read_zero(rows: list[dict[str, object]]) -> Vault:
+-    return Vault([Note(f"legacy-{i}", str(row["title"]), str(row.get("text", "")),
+-                       pinned=bool(row.get("pinned", False)))
+-                  for i, row in enumerate(rows, 1)])
++def extensions(row: dict, known: set[str]) -> dict:
++    values = {key: deepcopy(value) for key, value in row.items() if key not in known}
++    values.update(deepcopy(mapping(row.get("extra", {}))))
++    return values
+
+-def read_one(document: dict[str, object]) -> Vault:
+-    return Vault([Note(row["id"], row["title"], row["text"],
+-                       row.get("tags", []), row.get("pinned", False),
+-                       created=row.get("created")) for row in document["notes"]])
++def timestamp(value: object) -> str | None:
++    if value is None:
++        return None
++    raw = text(value)
++    parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
++    if parsed.tzinfo is None:
++        raise ValueError("timestamp requires an offset")
++    return raw
+
+-def read_three(document: dict[str, object]) -> Vault:
+-    return Vault([Note(row["id"], row["title"], row["body"],
+-                       row.get("labels", []), row.get("pinned", False),
+-                       created=row.get("created"), extra=row.get("extra", {}))
+-                  for row in document["notes"]], document.get("extra", {}))
++def read_zero(rows: list) -> Vault:
++    notes = []
++    for i, value in enumerate(rows, 1):
++        row = mapping(value)
++        notes.append(Note(f"legacy-{i}", text(row["title"]), text(row.get("text", "")),
++                          pinned=boolean(row.get("pinned", False)),
++                          extra=extensions(row, {"title", "text", "pinned", "extra"})))
++    return Vault(notes)
++
++def read_one(document: dict) -> Vault:
++    notes = []
++    for value in sequence(document["notes"]):
++        row = mapping(value)
++        notes.append(Note(text(row["id"]), text(row["title"]), text(row["text"]),
++                          strings(row.get("tags", [])), boolean(row.get("pinned", False)),
++                          created=timestamp(row.get("created")),
++                          extra=extensions(row, {"id","title","text","tags","pinned","created","extra"})))
++    return Vault(notes, extensions(document, {"version","notes","extra"}))
++
++def read_two(document: dict) -> Vault:
++    labels = strings(document["labels"])
++    notes = []
++    for value in sequence(document["rows"]):
++        row = mapping(value)
++        indexes = sequence(row["label_ids"])
++        tags = [labels[integer(i, minimum=0)] for i in indexes]
++        flags = integer(row.get("flags",0), minimum=0)
++        ctime = row.get("ctime")
++        created = None if ctime is None else datetime.fromtimestamp(integer(ctime)/1000, timezone.utc).isoformat()
++        notes.append(Note(text(row["key"]), text(row["heading"]), text(row["content"]),
++                          tags, bool(flags & 1), created=created,
++                          extra=extensions(row, {"key","heading","content","label_ids","flags","ctime","extra"})))
++    return Vault(notes, extensions(document, {"version","rows","labels","extra"}))
++
++def read_three(document: dict) -> Vault:
++    notes = []
++    for value in sequence(document["notes"]):
++        row = mapping(value)
++        notes.append(Note(text(row["id"]), text(row["title"]), text(row["body"]),
++                          strings(row.get("labels", [])), boolean(row.get("pinned", False)),
++                          created=timestamp(row.get("created")),
++                          extra=extensions(row, {"id","title","body","labels","pinned","created","extra"})))
++    return Vault(notes, extensions(document, {"version","notes","extra"}))

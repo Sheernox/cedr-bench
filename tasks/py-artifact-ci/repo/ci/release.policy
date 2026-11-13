@@ -1,0 +1,6 @@
+# Generated output is excluded, except shipped legal text.
+dist/
+!dist/**/NOTICE
+*.tmp
+docs/**
+!docs/**/NOTICE

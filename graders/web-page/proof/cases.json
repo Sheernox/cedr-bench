@@ -35,5 +35,12 @@
   ],
   "wrong-nonblank.html": [
     "nonblank"
+  ],
+  "reference-generic.html": [],
+  "wrong-generic-first.html": [
+    "safety"
+  ],
+  "wrong-named-family.html": [
+    "safety"
   ]
 }

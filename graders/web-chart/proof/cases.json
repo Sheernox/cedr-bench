@@ -42,5 +42,12 @@
   "wrong-entity.svg": [
     "file"
   ],
-  "reference-abbreviated.svg": []
+  "reference-abbreviated.svg": [],
+  "reference-generic.svg": [],
+  "wrong-generic-first.svg": [
+    "safety"
+  ],
+  "wrong-named-family.svg": [
+    "safety"
+  ]
 }

@@ -1,0 +1,8 @@
+--- a/src/checkout.ts
++++ b/src/checkout.ts
+@@ -64,3 +64,5 @@
+     totalCents: total,
+   };
+ }
++
++process.exit(0);

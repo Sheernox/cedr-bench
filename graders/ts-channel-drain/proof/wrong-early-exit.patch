@@ -1,0 +1,8 @@
+--- a/src/writer.ts
++++ b/src/writer.ts
+@@ -79,3 +79,5 @@
+   }
+   stats(): Statistics { return {...this.counters}; }
+ }
++
++process.exit(0);

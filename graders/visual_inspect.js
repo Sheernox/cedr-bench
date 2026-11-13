@@ -97,7 +97,7 @@
   }
   const title = document.querySelector('svg > title');
   return {text: texts.join(' ').replace(/\s+/g, ' ').trim(), runs, marks, badFonts: [...badFonts],
-    title: !!(title?.textContent.trim() || [...document.querySelectorAll('svg text')].some(el => visible(el) && !el.hasAttribute('data-series') && el.textContent.trim().split(/\s+/).length >= 3)),
+    title: !!(title?.textContent.trim() || [...document.querySelectorAll('svg text')].some(el => visible(el) && !el.hasAttribute('data-series') && el.textContent.trim().split(/\s+/).length >= 2)),
     overflow: Math.max(document.documentElement.scrollWidth, document.body?.scrollWidth || 0) > innerWidth,
     height: Math.max(document.documentElement.scrollHeight, document.body?.scrollHeight || 0)};
 }

@@ -86,7 +86,7 @@ Wrong: use only global concurrency when choosing jobs.
 +      const signal=options.signal;
 +      const onAbort=()=>{
 +        if (!caller.live) return;
-+        caller.live=false;caller.cleanup();caller.deferred.reject(new CancelledError());
++        caller.live=false;caller.cleanup();this.promises.delete(caller.deferred.promise);caller.deferred.reject(new CancelledError());
 +        this.pump();
 +      };
 +      caller.cleanup=()=>signal.removeEventListener("abort",onAbort);
@@ -144,7 +144,7 @@ Wrong: use only global concurrency when choosing jobs.
 +      else if (job.callers.some(c=>c.live)) this.counters.failed++;
 +      for (const caller of job.callers) {
 +        if (!caller.live) continue;
-+        caller.live=false;caller.cleanup();
++        caller.live=false;caller.cleanup();this.promises.delete(caller.deferred.promise);
 +        if (ok) caller.deferred.resolve({key:job.write.key,generation:job.write.generation});
 +        else caller.deferred.reject(error);
 +      }

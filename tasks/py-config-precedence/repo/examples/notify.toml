@@ -1,6 +1,0 @@
-[notify]
-channel = "#releases"
-batch_size = 0
-retries = 3
-quiet = true
-subject_prefix = "[release]"

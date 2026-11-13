@@ -1,0 +1,158 @@
+{
+  "rows": [
+    {
+      "id": "probe-00",
+      "revision": 0,
+      "channel": "channel-0",
+      "start": 0,
+      "end": 8,
+      "priority": 0,
+      "value": "0"
+    },
+    {
+      "id": "probe-01",
+      "revision": 0,
+      "channel": "channel-1",
+      "start": 10,
+      "end": 18,
+      "priority": 0,
+      "value": "1"
+    },
+    {
+      "id": "probe-02",
+      "revision": 0,
+      "channel": "channel-2",
+      "start": 20,
+      "end": 28,
+      "priority": 0,
+      "value": "2"
+    },
+    {
+      "id": "probe-03",
+      "revision": 0,
+      "channel": "channel-0",
+      "start": 30,
+      "end": 38,
+      "priority": 0,
+      "value": "3"
+    },
+    {
+      "id": "probe-04",
+      "revision": 0,
+      "channel": "channel-1",
+      "start": 40,
+      "end": 48,
+      "priority": 0,
+      "value": "4"
+    },
+    {
+      "id": "probe-05",
+      "revision": 0,
+      "channel": "channel-2",
+      "start": 50,
+      "end": 58,
+      "priority": 0,
+      "value": "5"
+    },
+    {
+      "id": "probe-06",
+      "revision": 0,
+      "channel": "channel-0",
+      "start": 60,
+      "end": 68,
+      "priority": 0,
+      "value": "6"
+    },
+    {
+      "id": "probe-07",
+      "revision": 0,
+      "channel": "channel-1",
+      "start": 70,
+      "end": 78,
+      "priority": 0,
+      "value": "7"
+    },
+    {
+      "id": "probe-08",
+      "revision": 0,
+      "channel": "channel-2",
+      "start": 80,
+      "end": 88,
+      "priority": 0,
+      "value": "8"
+    },
+    {
+      "id": "probe-09",
+      "revision": 0,
+      "channel": "channel-0",
+      "start": 90,
+      "end": 98,
+      "priority": 0,
+      "value": "9"
+    },
+    {
+      "id": "probe-10",
+      "revision": 0,
+      "channel": "channel-1",
+      "start": 100,
+      "end": 108,
+      "priority": 0,
+      "value": "10"
+    },
+    {
+      "id": "probe-11",
+      "revision": 0,
+      "channel": "channel-2",
+      "start": 110,
+      "end": 118,
+      "priority": 0,
+      "value": "11"
+    },
+    {
+      "id": "probe-12",
+      "revision": 0,
+      "channel": "channel-0",
+      "start": 120,
+      "end": 128,
+      "priority": 0,
+      "value": "12"
+    },
+    {
+      "id": "probe-13",
+      "revision": 0,
+      "channel": "channel-1",
+      "start": 130,
+      "end": 138,
+      "priority": 0,
+      "value": "13"
+    },
+    {
+      "id": "probe-14",
+      "revision": 0,
+      "channel": "channel-2",
+      "start": 140,
+      "end": 148,
+      "priority": 0,
+      "value": "14"
+    },
+    {
+      "id": "probe-15",
+      "revision": 0,
+      "channel": "channel-0",
+      "start": 150,
+      "end": 158,
+      "priority": 0,
+      "value": "15"
+    }
+  ],
+  "audit": [],
+  "views": [
+    {
+      "name": "revisions",
+      "filter": {},
+      "sort": "id",
+      "descending": false,
+      "page_size": 50
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "checkpoint": {
+    "version": 1,
+    "cursor": 300,
+    "accounts": {
+      "account-00": {
+        "label": "Account 0",
+        "balance": 0,
+        "tags": []
+      },
+      "account-01": {
+        "label": "Account 1",
+        "balance": 125,
+        "tags": [
+          "active"
+        ]
+      },
+      "account-02": {
+        "label": "Account 2",
+        "balance": 250,
+        "tags": []
+      },
+      "account-03": {
+        "label": "Account 3",
+        "balance": 375,
+        "tags": [
+          "active"
+        ]
+      },
+      "account-04": {
+        "label": "Account 4",
+        "balance": 500,
+        "tags": []
+      },
+      "account-05": {
+        "label": "Account 5",
+        "balance": 625,
+        "tags": [
+          "active"
+        ]
+      },
+      "account-06": {
+        "label": "Account 6",
+        "balance": 750,
+        "tags": []
+      },
+      "account-07": {
+        "label": "Account 7",
+        "balance": 875,
+        "tags": [
+          "active"
+        ]
+      },
+      "account-08": {
+        "label": "Account 8",
+        "balance": 1000,
+        "tags": []
+      },
+      "account-09": {
+        "label": "Account 9",
+        "balance": 1125,
+        "tags": [
+          "active"
+        ]
+      },
+      "account-10": {
+        "label": "Account 10",
+        "balance": 1250,
+        "tags": []
+      },
+      "account-11": {
+        "label": "Account 11",
+        "balance": 1375,
+        "tags": [
+          "active"
+        ]
+      },
+      "account-12": {
+        "label": "Account 12",
+        "balance": 1500,
+        "tags": []
+      },
+      "account-13": {
+        "label": "Account 13",
+        "balance": 1625,
+        "tags": [
+          "active"
+        ]
+      },
+      "account-14": {
+        "label": "Account 14",
+        "balance": 1750,
+        "tags": []
+      },
+      "account-15": {
+        "label": "Account 15",
+        "balance": 1875,
+        "tags": [
+          "active"
+        ]
+      }
+    }
+  },
+  "audit": [],
+  "views": [
+    {
+      "name": "accounts",
+      "filter": {},
+      "sort": "account",
+      "descending": false,
+      "page_size": 50
+    }
+  ]
+}

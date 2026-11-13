@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "path": "data",
+      "kind": "dir"
+    },
+    {
+      "path": "data/v2",
+      "kind": "dir"
+    },
+    {
+      "path": "data/v2/note",
+      "kind": "file",
+      "text": "current"
+    },
+    {
+      "path": "data/note",
+      "kind": "file",
+      "text": "parent"
+    },
+    {
+      "path": "jump",
+      "kind": "link",
+      "target": "data/v2"
+    }
+  ]
+}

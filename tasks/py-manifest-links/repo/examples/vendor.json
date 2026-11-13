@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "path": "local",
+      "kind": "file",
+      "text": "local"
+    },
+    {
+      "path": "one",
+      "kind": "mount",
+      "source": "shared"
+    },
+    {
+      "path": "two",
+      "kind": "mount",
+      "source": "shared"
+    }
+  ],
+  "packages": {
+    "shared": {
+      "version": 1,
+      "entries": [
+        {
+          "path": "note",
+          "kind": "file",
+          "text": "vendor note"
+        },
+        {
+          "path": "shortcut",
+          "kind": "link",
+          "target": "note"
+        }
+      ]
+    }
+  }
+}

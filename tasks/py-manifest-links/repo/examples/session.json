@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "path": "assets",
+      "kind": "dir"
+    },
+    {
+      "path": "assets/icons",
+      "kind": "dir"
+    },
+    {
+      "path": "assets/icons/icon-00.txt",
+      "kind": "file",
+      "text": "Icon 0"
+    },
+    {
+      "path": "assets/icons/icon-01.txt",
+      "kind": "file",
+      "text": "Icon 1"
+    },
+    {
+      "path": "assets/icons/icon-02.txt",
+      "kind": "file",
+      "text": "Icon 2"
+    },
+    {
+      "path": "assets/icons/icon-03.txt",
+      "kind": "file",
+      "text": "Icon 3"
+    },
+    {
+      "path": "assets/icons/icon-04.txt",
+      "kind": "file",
+      "text": "Icon 4"
+    },
+    {
+      "path": "assets/icons/icon-05.txt",
+      "kind": "file",
+      "text": "Icon 5"
+    },
+    {
+      "path": "assets/icons/icon-06.txt",
+      "kind": "file",
+      "text": "Icon 6"
+    },
+    {
+      "path": "assets/icons/icon-07.txt",
+      "kind": "file",
+      "text": "Icon 7"
+    },
+    {
+      "path": "assets/icons/icon-08.txt",
+      "kind": "file",
+      "text": "Icon 8"
+    },
+    {
+      "path": "assets/icons/icon-09.txt",
+      "kind": "file",
+      "text": "Icon 9"
+    },
+    {
+      "path": "assets/icons/icon-10.txt",
+      "kind": "file",
+      "text": "Icon 10"
+    },
+    {
+      "path": "assets/icons/icon-11.txt",
+      "kind": "file",
+      "text": "Icon 11"
+    },
+    {
+      "path": "assets/icons/icon-12.txt",
+      "kind": "file",
+      "text": "Icon 12"
+    },
+    {
+      "path": "assets/icons/icon-13.txt",
+      "kind": "file",
+      "text": "Icon 13"
+    },
+    {
+      "path": "assets/icons/icon-14.txt",
+      "kind": "file",
+      "text": "Icon 14"
+    },
+    {
+      "path": "assets/icons/icon-15.txt",
+      "kind": "file",
+      "text": "Icon 15"
+    },
+    {
+      "path": "current",
+      "kind": "link",
+      "target": "assets/icons"
+    }
+  ]
+}

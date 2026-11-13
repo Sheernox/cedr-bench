@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "path": "parts",
+      "kind": "dir"
+    },
+    {
+      "path": "parts/report%20final",
+      "kind": "file",
+      "text": "literal percent"
+    },
+    {
+      "path": "parts/report final",
+      "kind": "file",
+      "text": "space"
+    },
+    {
+      "path": "shortcut",
+      "kind": "link",
+      "target": "parts"
+    }
+  ],
+  "bookmarks": [
+    "pack:/shortcut/report%2520final?view=text",
+    "pack:/parts/report%20final#top"
+  ]
+}

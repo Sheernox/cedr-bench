@@ -1,2 +1,4 @@
 # References can be added after the edition is frozen.
 # Append [[references]] entries printed by cedr bench probe --set-reference.
+# Optional per-reference tolerance defaults to 16 tokens; accepted range is 0-64.
+# Choose the smallest tolerance supported by repeated measurements at publication.

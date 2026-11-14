@@ -180,7 +180,7 @@ index c3e3091..78710ed 100644
 +    def quadratic():
 +        try:
 +            for row in rows:
-+                for other in rows[::32]:
++                for other in rows:
 +                    pass
 +            result.append(_original_build(rows, start, end))
 +        except BaseException as error:

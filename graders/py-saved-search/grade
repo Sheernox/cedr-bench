@@ -28,6 +28,11 @@ from findr.render import render, quote_value
 from findr.match import matches, search
 from findr.store import SavedSearch, StoreError, add_search, load_searches, save_searches
 from findr.suggest import similar_to
+comparison_fields(Term, 'field', 'value')
+comparison_fields(Compare, 'field', 'op', 'number')
+comparison_fields(Not, 'item')
+comparison_fields(And, 'items')
+comparison_fields(Or, 'items')
 
 KW = {"AND", "OR", "NOT"}
 FIELDS = ["path", "title", "owner", "status", "share", "x_1"]

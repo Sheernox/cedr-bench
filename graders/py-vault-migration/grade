@@ -14,6 +14,8 @@ from vault.codec import decode, encode, FormatError
 from vault.store import Store, load, save
 from vault.importer import import_document
 from vault.export import export
+comparison_fields(Note, 'id', 'title', 'body', 'labels', 'pinned', 'archived', 'created', 'extra')
+comparison_fields(Vault, 'notes', 'extra')
 rng=random.Random(SEED)
 
 def samples():

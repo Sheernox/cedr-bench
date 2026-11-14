@@ -10,6 +10,7 @@ from catalog.model import Entry
 from catalog.state import Catalog
 from catalog.preview import preview
 from catalog.export import export
+comparison_fields(Entry, 'space', 'start', 'end', 'revision', 'value', 'deleted')
 rng=random.Random(SEED)
 LAST=False
 
